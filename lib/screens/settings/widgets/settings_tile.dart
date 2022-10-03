@@ -17,22 +17,17 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          leading: Icon(
-            leadingIcon,
-            color: kblackColor,
-            size: 30,
-          ),
-          title: Text(
-            title,
-            style: const TextStyle(fontSize: 19),
-          ),
-          trailing: Icon(trailingIcon),
-          onTap: onTap(),
-        ),
-      ],
+    return ListTile(
+      leading: Icon(
+        leadingIcon,
+        color: kblackColor,
+        size: 30,
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 19),
+      ),
+      trailing: Icon(trailingIcon),
     );
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/constants.dart';
 
-class AddTransactionTextFeildWidget extends StatelessWidget {
-  const AddTransactionTextFeildWidget({
+class CommonTexFeildWidget extends StatelessWidget {
+  const CommonTexFeildWidget({
     Key? key,
     required this.icon,
     required this.controller,
@@ -44,11 +44,13 @@ class AddTransactionTextFeildWidget extends StatelessWidget {
               size: 23,
             ),
           ),
-          const SizedBox(width: 10),
+          kWidth10,
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 11),
-              child: TextFormField(
+              padding: const EdgeInsets.only(
+                bottom: 14,
+              ), 
+              child: TextFormField(  
                 maxLines: 1,
                 validator: (validator) {
                   if (validator == null || validator.isEmpty) {
@@ -59,6 +61,7 @@ class AddTransactionTextFeildWidget extends StatelessWidget {
                 },
                 controller: controller,
                 decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 4),
                   hintText: hintText,
                   border: InputBorder.none,
                 ),

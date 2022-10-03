@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
@@ -90,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         top: 70,
                       ),
                       child: Container(
-                        width: 350,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         height: 220,
                         decoration: BoxDecoration(
                           color: primaryColor,
@@ -117,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.only(
                                 top: 16,
                                 left: 20,
+                                right: 25,
                               ),
                               child: Row(
                                 children: [
@@ -125,12 +125,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: kWhiteColor,
                                     size: 50,
                                   ),
-                                  AutoSizeText(
-                                    '${totalBalance < 0 ? 0 : totalBalance}',
-                                    style: TextStyle(
-                                      color: kWhiteColor,
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.w500,
+                                  Expanded(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Text(
+                                        '${totalBalance < 0 ? 0 : totalBalance}',
+                                        style: TextStyle(
+                                          color: kWhiteColor,
+                                          fontSize: 50,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -141,64 +146,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                 vertical: 15,
                                 horizontal: 25,
                               ),
-                              child: Row(
-                                children: [
-                                  CustomCircleIconWidget(
-                                    icon: Icons.arrow_downward,
-                                    color: kGreenColor,
-                                  ),
-                                  kWidth5,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Income',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    CustomCircleIconWidget(
+                                      icon: Icons.arrow_downward,
+                                      color: kGreenColor,
+                                    ),
+                                    kWidth5,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Income',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        totalIncome.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                        Text(
+                                          totalIncome.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  kWidth30,
-                                  CustomCircleIconWidget(
-                                    icon: Icons.arrow_upward,
-                                    color: kRedColor,
-                                  ),
-                                  kWidth5,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Expense',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15,
+                                      ],
+                                    ),
+                                    kWidth30,
+                                    CustomCircleIconWidget(
+                                      icon: Icons.arrow_upward,
+                                      color: kRedColor,
+                                    ),
+                                    kWidth5,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Expense',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        totalExpense.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                        Text(
+                                          totalExpense.toString(),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -208,34 +216,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Container(
-                    width: 350,
-                    height: 210,
-                    color: const Color.fromARGB(166, 255, 255, 0),
-                    child: const Center(
-                      child: Text('Graph will be plotted here'),
-                    ),
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Expenses',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      kHeight10,
+                      Container(
+                        width: 350,
+                        height: 210,
+                        color: const Color.fromARGB(166, 255, 255, 0),
+                        child: const Center(
+                          child: Text('Graph will be plotted here'),
+                        ),
+                      ),
+                      kHeight10,
+                      const Text(
+                        'Recent Transactions',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      kHeight10,
+                      RecentTransactionWidget(),
+                      kHeight50,
+                      kHeight20,
+                    ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Text(
-                    'Recent Transactions',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: RecentTransactionWidget(),
-                ),
-                kHeight50,
-                kHeight20,
               ],
-            ); 
+            );
           },
         ),
       ),

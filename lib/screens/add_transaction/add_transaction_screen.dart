@@ -7,13 +7,26 @@ import 'package:money_matter/screens/add_transaction/widget/choice_chip_widget.d
 import 'package:money_matter/screens/add_transaction/widget/date_pick_widget.dart';
 import 'package:money_matter/widgets/custom_round_rect_button.dart';
 
-class AddTransactionScreen extends StatelessWidget {
+class AddTransactionScreen extends StatefulWidget {
   AddTransactionScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AddTransactionScreen> createState() => _AddTransactionScreenState();
+}
+
+class _AddTransactionScreenState extends State<AddTransactionScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController amountController = TextEditingController();
+
   final TextEditingController categoryController = TextEditingController();
+
+  @override
+  void initState() {
+    type = CategoryType.income;
+    selectedDate = DateTime.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +64,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ),
                 ),
                 kHeight50,
-                AddTransactionTextFeildWidget(
+                CommonTexFeildWidget(
                   icon: Icons.currency_rupee,
                   controller: amountController,
                   hintText: 'Amount',
@@ -60,12 +73,13 @@ class AddTransactionScreen extends StatelessWidget {
                   inputTextType: TextInputType.number,
                 ),
                 kHeight20,
-                AddTransactionTextFeildWidget(
+                CommonTexFeildWidget(
                   icon: Icons.category,
                   controller: categoryController,
                   hintText: 'Category',
                   validator: categoryController.text,
                   validateText: 'please enter category',
+                  inputTextType: TextInputType.text,
                 ),
                 kHeight20,
                 const ChoiceChipWidget(),

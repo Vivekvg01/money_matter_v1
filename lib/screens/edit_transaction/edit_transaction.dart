@@ -82,7 +82,7 @@ class EditTransactionScreen extends StatelessWidget {
                     ),
                   ),
                   kHeight50,
-                  AddTransactionTextFeildWidget(
+                  CommonTexFeildWidget(
                     icon: Icons.currency_rupee,
                     controller: amountEditController,
                     hintText: "Amount",
@@ -90,7 +90,7 @@ class EditTransactionScreen extends StatelessWidget {
                     validateText: "Amount cant't be empty",
                   ),
                   kHeight20,
-                  AddTransactionTextFeildWidget(
+                  CommonTexFeildWidget(
                     icon: Icons.category,
                     controller: categoryEditController,
                     hintText: 'Category',
@@ -98,16 +98,18 @@ class EditTransactionScreen extends StatelessWidget {
                     validateText: "Category can't be empty",
                   ),
                   kHeight20,
-                  ChoiceChipWidget(),
+                  const ChoiceChipWidget(),
                   kHeight20,
                   DatePickWidget(),
                   kHeight20,
                   CustomRoundRectButton(
                     buttonLabel: "Update",
                     onButtonClicked: () {
-                      _formkey.currentState!.validate();
-                      onUpdateButtonClicked(context);
+                     if( _formkey.currentState!.validate()){
+                       onUpdateButtonClicked(context);
                       Navigator.of(context).pop();
+                     }
+                      
                     },
                   ),
                 ],

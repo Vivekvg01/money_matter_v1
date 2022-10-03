@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
-import 'package:money_matter/screens/settings/widgets/settings_tile.dart';
+import 'package:money_matter/constants/constants.dart';
+import 'package:money_matter/screens/settings/widgets/reminder_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
@@ -19,43 +20,9 @@ class SettingsScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              SettingsTile(
-                leadingIcon: Icons.notifications,
-                title: "Reminder",
-                trailingIcon: Icons.arrow_forward_ios,
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.replay_circle_filled_outlined,
-                title: "Reset App",
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.privacy_tip,
-                title: "Privacy Policy",
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.share,
-                title: "Share",
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.star_outlined,
-                title: "Rate this app",
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.feedback_rounded,
-                title: "Feedback",
-                onTap: () {},
-              ),
-              SettingsTile(
-                leadingIcon: Icons.info,
-                title: "About Us",
-                onTap: () {},
-              ),
+            children: const [
+              ReminderWidget(),
+              kHeight10,
             ],
           ),
         ),
