@@ -65,7 +65,7 @@ MaterialColor primaryMaterialColor = const MaterialColor(
     ),
   },
 );
-
+ 
 ThemeData appTheme = ThemeData(
   primaryColor: const Color(0xff0029ff),
   primarySwatch: primaryMaterialColor,

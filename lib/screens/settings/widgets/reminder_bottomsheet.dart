@@ -48,7 +48,7 @@ class ReminderBottomSheet extends StatelessWidget {
                       hour: 12,
                       minute: 0,
                     ),
-                    initialEntryMode: TimePickerEntryMode.input,
+                    initialEntryMode: TimePickerEntryMode.dial,
                   );
                 },
                 child: const Text(

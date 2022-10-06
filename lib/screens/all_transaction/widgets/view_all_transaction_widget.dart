@@ -4,6 +4,8 @@ import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/edit_transaction/edit_transaction.dart';
 
+String dropDownValue = "All";
+
 class ViewAllTransactions extends StatelessWidget {
   ViewAllTransactions({Key? key}) : super(key: key);
 

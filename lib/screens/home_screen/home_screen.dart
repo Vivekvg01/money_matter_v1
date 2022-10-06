@@ -1,9 +1,11 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/main.dart';
+import 'package:money_matter/screens/home_screen/widget/chart_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/custom_circle_icon_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/recent_transactions.dart';
 import 'package:money_matter/screens/home_screen/widget/time_control.dart';
@@ -14,6 +16,7 @@ String username = "";
 int totalBalance = 100;
 int totalIncome = 0;
 int totalExpense = 0;
+DateTime today = DateTime.now();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -108,13 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 19,
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                top: 16,
+                                top: 13,
                                 left: 20,
                                 right: 25,
                               ),
@@ -143,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                vertical: 15,
+                                vertical: 12,
                                 horizontal: 25,
                               ),
                               child: SingleChildScrollView(
@@ -228,14 +231,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       kHeight10,
-                      Container(
-                        width: 350,
-                        height: 210,
-                        color: const Color.fromARGB(166, 255, 255, 0),
-                        child: const Center(
-                          child: Text('Graph will be plotted here'),
-                        ),
-                      ),
+                      //Chart 
+                      ChartWidget(height: 300, entiredata: transactionDatas),
                       kHeight10,
                       const Text(
                         'Recent Transactions',

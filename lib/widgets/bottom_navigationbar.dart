@@ -97,7 +97,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
                       ),
                      const BottomNavigationBarItem(
                         icon: Icon(
-                          Icons.pie_chart,
+                          Icons.bar_chart,
                           size: 26,
                         ),
                         label: '',
