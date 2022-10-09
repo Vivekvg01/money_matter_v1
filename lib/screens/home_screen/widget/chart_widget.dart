@@ -2,30 +2,19 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
+import 'package:money_matter/screens/home_screen/home_screen.dart';
 
-class ChartWidget extends StatefulWidget {
-  final double height;
-  List<FlSpot> dataSet = [];
-  List<FlSpot> dataSetIncome = [];
-  List<FlSpot> yearDataSetExpense = [];
-  List<TransactionModel> entireData = [];
+class ChartWidget extends StatelessWidget {
+  const ChartWidget({Key? key, required this.entireData, required this.chartheight}) : super(key: key);
 
-  ChartWidget({
-    Key? key,
-    required this.height,
-    required entiredata,
-  }) : super(key: key);
+  final List<TransactionModel> entireData;
+  final double chartheight;
 
-  @override
-  State<ChartWidget> createState() => _ChartWidgetState();
-}
-
-class _ChartWidgetState extends State<ChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 400,
+        height: chartheight,
         decoration: BoxDecoration(
           color: kWhiteColor,
           borderRadius: BorderRadius.circular(10),
@@ -75,7 +64,8 @@ class _ChartWidgetState extends State<ChartWidget> {
             ),
             lineBarsData: [
               LineChartBarData(
-                spots: getPlotPointsExpense(widget.entireData),
+                color: primaryColor,
+                spots: getPlotPoints(entireData),
                 isCurved: true,
                 preventCurveOverShooting: true,
                 belowBarData: BarAreaData(
@@ -90,54 +80,22 @@ class _ChartWidgetState extends State<ChartWidget> {
   }
 }
 
+//Expense chart points
 List<FlSpot> getPlotPoints(List<TransactionModel> entireData) {
-  ChartWidget chart = ChartWidget(
-    height: 300,
-    entiredata: entireData,
-  );
-  List tempDataSetIncome = [];
-  final today = DateTime.now();
-  for (TransactionModel data in entireData) {
-    if (data.date.month == today.month && data.type == CategoryType.income) {
-      tempDataSetIncome.add(data);
-    }
-  }
-
-  tempDataSetIncome.sort((a, b) => a.date.day.compareTo(b.date.day));
-  for (var i = 0; i < tempDataSetIncome.length; i++) {
-    chart.dataSetIncome.add(
-      FlSpot(
-        //x axis
-        tempDataSetIncome[i].date.day.toDouble(),
-        //y axis
-        tempDataSetIncome[i].amount.toDouble(),
-      ),
-    );
-  }
-  return chart.dataSetIncome;
-}
-
-List<FlSpot> getPlotPointsExpense(List<TransactionModel> entireData) {
-  final today = DateTime.now();
-  ChartWidget chart = ChartWidget(height: 300, entiredata: entireData);
+  List<FlSpot> dataSet = [];
   List tempDataSet = [];
-
   for (TransactionModel data in entireData) {
     if (data.date.month == today.month && data.type == CategoryType.expense) {
       tempDataSet.add(data);
     }
   }
-
   tempDataSet.sort((a, b) => a.date.day.compareTo(b.date.day));
+
   for (int i = 0; i < tempDataSet.length; i++) {
-    chart.dataSet.add(
-      FlSpot(
-        //x axis
-        tempDataSet[i].date.day.toDouble(),
-        //y axis 
-        tempDataSet[i].amount.toDouble(),
-      ),
-    );
+    int xAxis = tempDataSet[i].date.day;
+    int yAxis = tempDataSet[i].amount;
+
+    dataSet.add(FlSpot(xAxis.toDouble(), yAxis.toDouble()));
   }
-  return chart.dataSet;
+  return dataSet;
 }

@@ -30,14 +30,12 @@ class ReminderBottomSheet extends StatelessWidget {
                 style: GoogleFonts.lato(fontSize: 19),
               ),
               kHeight30,
-              SingleChildScrollView(
-                child: CommonTexFeildWidget(
-                  icon: Icons.lightbulb,
-                  controller: reminderController,
-                  hintText: 'What to Remind?',
-                  validator: reminderController.text,
-                  validateText: 'Enter what to remind',
-                ),
+              CommonTexFeildWidget(
+                icon: Icons.lightbulb,
+                controller: reminderController,
+                hintText: 'What to Remind?',
+                validator: reminderController.text,
+                validateText: 'Enter what to remind',
               ),
               kHeight10,
               TextButton(

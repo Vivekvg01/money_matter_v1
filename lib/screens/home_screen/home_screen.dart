@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
@@ -10,6 +9,7 @@ import 'package:money_matter/screens/home_screen/widget/custom_circle_icon_widge
 import 'package:money_matter/screens/home_screen/widget/recent_transactions.dart';
 import 'package:money_matter/screens/home_screen/widget/time_control.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 String username = "";
 
@@ -223,16 +223,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Expenses',
+                      const Text( 
+                        'Expense',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       kHeight10,
-                      //Chart 
-                      ChartWidget(height: 300, entiredata: transactionDatas),
+                      //Chart
+                      ChartWidget(entireData: transactionDatas, chartheight: 400,),
+                      // ChartWidget(
+                      //   height: 350,
+                      //   entiredata: transactionDatas,
+                      // ),
+                    // ChartWidget(entireData: transactionDatas),
                       kHeight10,
                       const Text(
                         'Recent Transactions',
