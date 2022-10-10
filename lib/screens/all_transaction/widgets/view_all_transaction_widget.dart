@@ -9,7 +9,7 @@ String dropDownValue = "All";
 class ViewAllTransactions extends StatelessWidget {
   ViewAllTransactions({Key? key}) : super(key: key);
 
- final List<String> months = [
+  final List<String> months = [
     "Jan",
     "Feb",
     "Mar",
@@ -30,6 +30,7 @@ class ViewAllTransactions extends StatelessWidget {
       valueListenable: transactionListNotifier,
       builder: (BuildContext ctx, List<TransactionModel> transactionList, _) {
         return ListView.separated(
+          reverse: true,
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
           itemBuilder: (ctx, index) {

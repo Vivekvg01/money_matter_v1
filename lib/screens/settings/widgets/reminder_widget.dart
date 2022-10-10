@@ -19,10 +19,11 @@ class ReminderWidget extends StatelessWidget {
       ),
       onTap: () {
         showModalBottomSheet(
-            context: context,
-            builder: (builder) {
-              return  ReminderBottomSheet();
-            });
+          context: context,
+          builder: (builder) {
+            return const ReminderBottomSheet();
+          },
+        );
       },
       trailing: const Icon(
         Icons.arrow_forward_ios,

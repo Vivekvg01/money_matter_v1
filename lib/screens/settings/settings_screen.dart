@@ -1,12 +1,23 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
+import 'package:money_matter/screens/settings/Functions/settings_functions.dart';
+import 'package:money_matter/screens/settings/widgets/privacy_policy_widget.dart';
 import 'package:money_matter/screens/settings/widgets/reminder_widget.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  void initState() {
+    super.initState();
+    tz.initializeTimeZones();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               //reminder
-              ReminderWidget(),
+              const ReminderWidget(),
               kHeight5,
               //reset app data
               ListTile(
@@ -37,7 +48,9 @@ class SettingsScreen extends StatelessWidget {
                   'Reset App Data',
                   style: TextStyle(fontSize: 19),
                 ),
-                onTap: () {},
+                onTap: () {
+                  resetAllDatas(context);
+                },
               ),
               //privacy policy
               kHeight5,
@@ -51,7 +64,13 @@ class SettingsScreen extends StatelessWidget {
                   'Privacy Policy',
                   style: TextStyle(fontSize: 19),
                 ),
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (builder) {
+                        return const PrivacyPolicyWidget();
+                      });
+                },
               ),
               //rate this app
               kHeight5,
@@ -81,7 +100,9 @@ class SettingsScreen extends StatelessWidget {
                     fontSize: 19,
                   ),
                 ),
-                onTap: (){},
+                onTap: () {
+                  sendMail();
+                },
               ),
               //About Us
               kHeight5,
@@ -95,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
                   'About Us',
                   style: TextStyle(fontSize: 19),
                 ),
-                onTap: (){},
+                onTap: () {},
               )
             ],
           ),
