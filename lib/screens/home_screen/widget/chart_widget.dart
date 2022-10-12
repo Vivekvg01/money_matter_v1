@@ -5,7 +5,9 @@ import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/home_screen/home_screen.dart';
 
 class ChartWidget extends StatelessWidget {
-  const ChartWidget({Key? key, required this.entireData, required this.chartheight}) : super(key: key);
+  const ChartWidget(
+      {Key? key, required this.entireData, required this.chartheight})
+      : super(key: key);
 
   final List<TransactionModel> entireData;
   final double chartheight;
@@ -65,7 +67,7 @@ class ChartWidget extends StatelessWidget {
             lineBarsData: [
               LineChartBarData(
                 color: primaryColor,
-                spots: getPlotPoints(entireData),
+                spots: getPlotPointsExpense(entireData),
                 isCurved: true,
                 preventCurveOverShooting: true,
                 belowBarData: BarAreaData(
@@ -81,11 +83,31 @@ class ChartWidget extends StatelessWidget {
 }
 
 //Expense chart points
-List<FlSpot> getPlotPoints(List<TransactionModel> entireData) {
+List<FlSpot> getPlotPointsExpense(List<TransactionModel> entireData) {
   List<FlSpot> dataSet = [];
   List tempDataSet = [];
   for (TransactionModel data in entireData) {
     if (data.date.month == today.month && data.type == CategoryType.expense) {
+      tempDataSet.add(data);
+    }
+  }
+  tempDataSet.sort((a, b) => a.date.day.compareTo(b.date.day));
+
+  for (int i = 0; i < tempDataSet.length; i++) {
+    int xAxis = tempDataSet[i].date.day;
+    int yAxis = tempDataSet[i].amount;
+
+    dataSet.add(FlSpot(xAxis.toDouble(), yAxis.toDouble()));
+  }
+  return dataSet;
+}
+
+//Income chart widget
+List<FlSpot> getPlotPointsIncome(List<TransactionModel> entireData) {
+  List<FlSpot> dataSet = [];
+  List tempDataSet = [];
+  for (TransactionModel data in entireData) {
+    if (data.date.month == today.month && data.type == CategoryType.income) {
       tempDataSet.add(data);
     }
   }

@@ -1,110 +1,525 @@
 import 'package:flutter/material.dart';
-import 'package:money_matter/constants/colors.dart';
+import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
-import 'package:money_matter/screens/edit_transaction/edit_transaction.dart';
+import 'package:money_matter/screens/all_transaction/all_transaction_screen.dart';
+import 'package:money_matter/screens/all_transaction/widgets/transaction_tile_widget.dart';
 
 String dropDownValue = "All";
+final List<String> months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
-class ViewAllTransactions extends StatelessWidget {
-  ViewAllTransactions({Key? key}) : super(key: key);
-
-  final List<String> months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+class ViewAllTransactions extends StatefulWidget {
+  const ViewAllTransactions({Key? key}) : super(key: key);
 
   @override
+  State<ViewAllTransactions> createState() => _ViewAllTransactionsState();
+}
+
+class _ViewAllTransactionsState extends State<ViewAllTransactions> {
+  @override
   Widget build(BuildContext context) {
+    DateTime todayFil = DateTime.now();
     return ValueListenableBuilder(
       valueListenable: transactionListNotifier,
-      builder: (BuildContext ctx, List<TransactionModel> transactionList, _) {
-        return ListView.separated(
+      builder: (BuildContext ctx, List<TransactionModel> transactionDatas, _) {
+        return ListView.builder(
           reverse: true,
           shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemBuilder: (ctx, index) {
-            final transactionDetails = transactionList[index];
-            return Container(
-              height: 73.5,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: klightGrey,
-              ),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor:
-                      transactionDetails.type == CategoryType.income
-                          ? kGreenColor
-                          : kRedColor,
-                  radius: 28,
-                  child: Icon(
-                    transactionDetails.type == CategoryType.income
-                        ? Icons.arrow_downward
-                        : Icons.arrow_upward,
-                    color: kWhiteColor,
-                  ),
-                ),
-                title: Text(
-                  transactionDetails.type == CategoryType.income
-                      ? "Credit"
-                      : "Debit",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Text(
-                    '${transactionDetails.date.day} ${months[transactionDetails.date.month - 1]}'),
-                trailing: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '${transactionDetails.type == CategoryType.income ? '+' : '-'} ${transactionDetails.amount.toString()}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(transactionDetails.category),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (contxt) {
-                        return EditTransactionScreen(
-                          amount: transactionDetails.amount.toString(),
-                          category: transactionDetails.category,
-                          editedDate: transactionDetails.date,
-                          dataIndex: index,
-                          editedType: transactionDetails.type,
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            );
-          },
-          separatorBuilder: (_, __) => const SizedBox(
-            height: 10,
+          physics: const BouncingScrollPhysics(
+            parent: NeverScrollableScrollPhysics(),
           ),
-          itemCount: transactionList.length,
+          itemCount: transactionDatas.length,
+          itemBuilder: (ctx, index) {
+            TransactionModel dataAtIndex;
+            try {
+              dataAtIndex = transactionDatas[index];
+            } catch (e) {
+              return Container();
+            }
+
+            if (dropDownValue == 'Income' &&
+                dataAtIndex.type == CategoryType.income) {
+              if (dataFilterValue == 'Today') {
+                if (dataAtIndex.date.month == todayFil.month &&
+                    dataAtIndex.date.day == todayFil.day) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              } else if (dataFilterValue == 'Yesterday') {
+                if (dataAtIndex.date.month == todayFil.month &&
+                    dataAtIndex.date.day == todayFil.day - 1) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              } else if (dataFilterValue == 'All') {
+                return incomeTileWidget(
+                  context,
+                  dataAtIndex,
+                  index,
+                );
+
+                //month Income Filter
+              } else if (dataFilterValue == 'Month') {
+                if (monthFilterValue == 'Jan' && dataAtIndex.date.month == 1) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Feb' &&
+                    dataAtIndex.date.month == 2) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Mar' &&
+                    dataAtIndex.date.month == 3) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Apr' &&
+                    dataAtIndex.date.month == 4) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'May' &&
+                    dataAtIndex.date.month == 5) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Jun' &&
+                    dataAtIndex.date.month == 6) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Jul' &&
+                    dataAtIndex.date.month == 7) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Aug' &&
+                    dataAtIndex.date.month == 8) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Sep' &&
+                    dataAtIndex.date.month == 9) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Oct' &&
+                    dataAtIndex.date.month == 10) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Nov' &&
+                    dataAtIndex.date.month == 11) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Dec' &&
+                    dataAtIndex.date.month == 12) {
+                  return incomeTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              }
+              return Container();
+            }
+
+            //Expense Filter
+            else if (dropDownValue == 'Expense' &&
+                dataAtIndex.type == CategoryType.expense) {
+              if (dataFilterValue == 'All') {
+                return expenseTileWidget(
+                  context,
+                  dataAtIndex,
+                  index,
+                );
+              } else if (dataFilterValue == 'Today') {
+                if (dataAtIndex.date.month == todayFil.month &&
+                    dataAtIndex.date.day == todayFil.day) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              } else if (dataFilterValue == 'Yesterday') {
+                if (dataAtIndex.date.month == todayFil.month &&
+                    dataAtIndex.date.day == todayFil.day - 1) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              } else if (dataFilterValue == 'Month') {
+                if (monthFilterValue == 'Jan' && dataAtIndex.date.month == 1) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Feb' &&
+                    dataAtIndex.date.month == 2) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Mar' &&
+                    dataAtIndex.date.month == 3) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Apr' &&
+                    dataAtIndex.date.month == 4) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'May' &&
+                    dataAtIndex.date.month == 5) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Jun' &&
+                    dataAtIndex.date.month == 6) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Jul' &&
+                    dataAtIndex.date.month == 7) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Aug' &&
+                    dataAtIndex.date.month == 8) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Sep' &&
+                    dataAtIndex.date.month == 9) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Oct' &&
+                    dataAtIndex.date.month == 10) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Nov' &&
+                    dataAtIndex.date.month == 11) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                } else if (monthFilterValue == 'Dec' &&
+                    dataAtIndex.date.month == 12) {
+                  return expenseTileWidget(
+                    context,
+                    dataAtIndex,
+                    index,
+                  );
+                }
+              }
+
+              return Container();
+            } else {
+              if (dropDownValue == "All") {
+                if (dataAtIndex.type == CategoryType.income) {
+                  if (dataFilterValue == 'All') {
+                    return incomeTileWidget(
+                      context,
+                      dataAtIndex,
+                      index,
+                    );
+                  } else if (dataFilterValue == 'Today') {
+                    if (dataAtIndex.date.month == todayFil.month &&
+                        dataAtIndex.date.day == todayFil.day) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  } else if (dataFilterValue == 'Yesterday') {
+                    if (dataAtIndex.date.month == todayFil.month &&
+                        dataAtIndex.date.day == todayFil.day - 1) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  } else if (dataFilterValue == 'Month') {
+                    if (monthFilterValue == 'Jan' &&
+                        dataAtIndex.date.month == 1) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Feb' &&
+                        dataAtIndex.date.month == 2) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Mar' &&
+                        dataAtIndex.date.month == 3) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Apr' &&
+                        dataAtIndex.date.month == 4) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'May' &&
+                        dataAtIndex.date.month == 5) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Jun' &&
+                        dataAtIndex.date.month == 6) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Jul' &&
+                        dataAtIndex.date.month == 7) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Aug' &&
+                        dataAtIndex.date.month == 8) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Sep' &&
+                        dataAtIndex.date.month == 9) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Oct' &&
+                        dataAtIndex.date.month == 10) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Nov' &&
+                        dataAtIndex.date.month == 11) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Dec' &&
+                        dataAtIndex.date.month == 12) {
+                      return incomeTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  }
+                  return Container();
+                } else {
+                  if (dataFilterValue == 'All') {
+                    return expenseTileWidget(
+                      context,
+                      dataAtIndex,
+                      index,
+                    );
+                  } else if (dataFilterValue == 'Today') {
+                    if (dataAtIndex.date.month == todayFil.month &&
+                        dataAtIndex.date.day == todayFil.day) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  } else if (dataFilterValue == 'Yesterday') {
+                    if (dataAtIndex.date.month == todayFil.month &&
+                        dataAtIndex.date.day == todayFil.day - 1) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  } else if (dataFilterValue == 'Month') {
+                    if (monthFilterValue == 'Jan' &&
+                        dataAtIndex.date.month == 1) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Feb' &&
+                        dataAtIndex.date.month == 2) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Mar' &&
+                        dataAtIndex.date.month == 3) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Apr' &&
+                        dataAtIndex.date.month == 4) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'May' &&
+                        dataAtIndex.date.month == 5) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Jun' &&
+                        dataAtIndex.date.month == 6) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Jul' &&
+                        dataAtIndex.date.month == 7) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Aug' &&
+                        dataAtIndex.date.month == 8) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Sep' &&
+                        dataAtIndex.date.month == 9) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Oct' &&
+                        dataAtIndex.date.month == 10) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Nov' &&
+                        dataAtIndex.date.month == 11) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    } else if (monthFilterValue == 'Dec' &&
+                        dataAtIndex.date.month == 12) {
+                      return expenseTileWidget(
+                        context,
+                        dataAtIndex,
+                        index,
+                      );
+                    }
+                  }
+                  return Container();
+                }
+              } else {
+                return Container();
+              }
+            }
+          },
         );
       },
     );
   }
 }
+
+

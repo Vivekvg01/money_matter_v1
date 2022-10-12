@@ -14,6 +14,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   void initState() {
     super.initState();
     tz.initializeTimeZones();
@@ -66,10 +67,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 onTap: () {
                   showModalBottomSheet(
-                      context: context,
-                      builder: (builder) {
-                        return const PrivacyPolicyWidget();
-                      });
+                    context: context,
+                    builder: (builder) {
+                      return const PrivacyPolicyWidget();
+                    },
+                  );
                 },
               ),
               //rate this app

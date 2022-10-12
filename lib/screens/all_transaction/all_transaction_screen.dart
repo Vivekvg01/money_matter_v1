@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/constants.dart';
+import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/screens/all_transaction/widgets/view_all_transaction_widget.dart';
 import '../../constants/colors.dart';
-
-String timeLinerFileterValue = "All";
-String monthFilterValue = "Jan";
-
-final categoryItemFilter = <String>['All', 'Income', 'Expense'];
-final timelineItemFilter = <String>['All', 'Today', 'Yesterday', 'Month'];
 
 class AllTransactionScreen extends StatefulWidget {
   AllTransactionScreen({Key? key}) : super(key: key);
@@ -15,6 +10,12 @@ class AllTransactionScreen extends StatefulWidget {
   @override
   State<AllTransactionScreen> createState() => _AllTransactionScreenState();
 }
+
+String dataFilterValue = "All";
+String monthFilterValue = "Jan";
+
+final categoryItemFilter = <String>['All', 'Income', 'Expense'];
+final timelineItemFilter = <String>['All', 'Today', 'Yesterday', 'Month'];
 
 class _AllTransactionScreenState extends State<AllTransactionScreen> {
   final List<String> showMonths = [
@@ -34,6 +35,7 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getAllTransactions();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -111,10 +113,10 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
                           ),
                         );
                       }).toList(),
-                      value: timeLinerFileterValue,
+                      value: dataFilterValue,
                       onChanged: (String? newValue) {
                         setState(() {
-                          timeLinerFileterValue = newValue!;
+                          dataFilterValue = newValue!;
                         });
                       },
                     ),
@@ -122,48 +124,54 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
                 ),
                 kWidth10,
                 //Month Filter dropdown
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.27,
-                  decoration: BoxDecoration(
-                    color: timeLinerFileterValue == "Month"
-                        ? primaryColor
-                        : const Color.fromARGB(255, 198, 196, 196),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: DropdownButton(
-                      disabledHint: const Text('Month'),
-                      menuMaxHeight: 200,
-                      iconEnabledColor: kWhiteColor,
-                      items: monthFilterValue == 'Month'
-                          ? showMonths
-                              .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              );
-                            }).toList()
-                          : null,
-                      value: monthFilterValue,
-                      onChanged: (String? newValue) {
-                        monthFilterValue = newValue!;
-                      },
-                    ),
-                  ),
-                )
+                dataFilterValue == 'Month'
+                    ? Container(
+                        width: MediaQuery.of(context).size.width * 0.26,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        decoration: BoxDecoration(
+                          color: dataFilterValue == 'Month'
+                              ? primaryColor
+                              : kWhiteColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: DropdownButton(
+                            menuMaxHeight: 200,
+                            underline: const Text(''),
+                            iconEnabledColor: Colors.white,
+                            dropdownColor: primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                            items: dataFilterValue == 'Month'
+                                ? showMonths.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList()
+                                : null,
+                            value: monthFilterValue,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                monthFilterValue = newValue!;
+                              });
+                            },
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
             kHeight20,
             ViewAllTransactions(),
             const SizedBox(
               height: 90,
-            )
+            ),
           ],
         ),
       ),
