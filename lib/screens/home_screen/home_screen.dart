@@ -8,8 +8,8 @@ import 'package:money_matter/screens/home_screen/widget/chart_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/custom_circle_icon_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/recent_transactions.dart';
 import 'package:money_matter/screens/home_screen/widget/time_control.dart';
+import 'package:money_matter/screens/statitics_screen/statstics_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 String username = "";
 
@@ -29,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getUsername();
+    statIndex =1 ;
+    statDropDownValue = "Expense";
     super.initState();
   }
 
@@ -223,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text( 
+                      const Text(
                         'Expense',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -232,12 +234,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       kHeight10,
                       //Chart
-                      ChartWidget(entireData: transactionDatas, chartheight: 400,),
-                      // ChartWidget(
-                      //   height: 350,
-                      //   entiredata: transactionDatas,
-                      // ),
-                    // ChartWidget(entireData: transactionDatas),
+                      ChartWidget(
+                        entireData: transactionDatas,
+                        chartheight: 400,
+                      ),
                       kHeight10,
                       const Text(
                         'Recent Transactions',

@@ -21,7 +21,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     HomeScreen(),
     AllTransactionScreen(),
     AddTransactionScreen(),
-    StatsticsScreen(),
+    ScreenStatistics(),
     SettingsScreen(),
   ];
   @override

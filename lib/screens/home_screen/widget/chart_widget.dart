@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/home_screen/home_screen.dart';
+import 'package:money_matter/screens/statitics_screen/statstics_screen.dart';
 
 class ChartWidget extends StatelessWidget {
   const ChartWidget(
@@ -67,7 +68,15 @@ class ChartWidget extends StatelessWidget {
             lineBarsData: [
               LineChartBarData(
                 color: primaryColor,
-                spots: getPlotPointsExpense(entireData),
+                spots: statDropDownValue == "Income" && statIndex == 1
+                    ? getPlotPointsIncome(entireData)
+                    : statDropDownValue == "Expense" && statIndex == 1
+                        ? getPlotPointsExpense(entireData)
+                        : statDropDownValue == "Income" && statIndex == 2
+                            ? getYearPlotPointsIncome(entireData)
+                            : statDropDownValue == "Expense" && statIndex == 2
+                                ? getYearPlotPointsExpense(entireData)
+                                : getPlotPointsIncome(entireData),
                 isCurved: true,
                 preventCurveOverShooting: true,
                 belowBarData: BarAreaData(
@@ -102,7 +111,7 @@ List<FlSpot> getPlotPointsExpense(List<TransactionModel> entireData) {
   return dataSet;
 }
 
-//Income chart widget
+//Income chart points
 List<FlSpot> getPlotPointsIncome(List<TransactionModel> entireData) {
   List<FlSpot> dataSet = [];
   List tempDataSet = [];
@@ -118,6 +127,51 @@ List<FlSpot> getPlotPointsIncome(List<TransactionModel> entireData) {
     int yAxis = tempDataSet[i].amount;
 
     dataSet.add(FlSpot(xAxis.toDouble(), yAxis.toDouble()));
+  }
+  return dataSet;
+}
+
+// sum of data months
+
+int getSumMonth(List<TransactionModel> entireData, int month,
+    CategoryType transactionType) {
+  int sum = 0;
+  for (TransactionModel transaction in entireData) {
+    if (transaction.date.month == month &&
+        transaction.type == transactionType) {
+      sum += transaction.amount;
+    }
+  }
+  return sum;
+}
+
+//year Income chart
+List<FlSpot> getYearPlotPointsIncome(List<TransactionModel> entireData) {
+  List yearTempDataSetIncome = [];
+  List<FlSpot> dataSet = [];
+
+  for (int i = 0; i <= 12; i++) {
+    yearTempDataSetIncome.add(getSumMonth(entireData, i, CategoryType.income));
+  }
+  for (int i = 0; i < yearTempDataSetIncome.length; i++) {
+    int yAxis = yearTempDataSetIncome[i];
+    dataSet.add(FlSpot(i + 1.toDouble(), yAxis.toDouble()));
+  }
+  return dataSet;
+}
+
+//year Expense chart
+List<FlSpot> getYearPlotPointsExpense(List<TransactionModel> entireData) {
+  List yearTempDataSetExpense = [];
+  List<FlSpot> dataSet = [];
+
+  for (int i = 0; i <= 12; i++) {
+    yearTempDataSetExpense
+        .add(getSumMonth(entireData, i, CategoryType.expense));
+  }
+  for (int i = 0; i < yearTempDataSetExpense.length; i++) {
+    int yAxis = yearTempDataSetExpense[i];
+    dataSet.add(FlSpot(i + 1.toDouble(), yAxis.toDouble()));
   }
   return dataSet;
 }
