@@ -4,6 +4,7 @@ import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/edit_transaction/edit_transaction.dart';
 
+// ignore: must_be_immutable
 class RecentTransactionWidget extends StatelessWidget {
   RecentTransactionWidget({Key? key}) : super(key: key);
 
@@ -27,12 +28,13 @@ class RecentTransactionWidget extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: transactionListNotifier,
       builder: (BuildContext ctx, List<TransactionModel> transactionList, _) {
+        final List<TransactionModel> tempList =
+            transactionList.reversed.toList();
         return ListView.separated(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          reverse: true,
           itemBuilder: (ctx, index) {
-            final transactionDetails = transactionList[index];
+            final transactionDetails = tempList[index];
             return Container(
               height: 73.5,
               width: double.infinity,
@@ -100,7 +102,7 @@ class RecentTransactionWidget extends StatelessWidget {
           separatorBuilder: (_, __) => const SizedBox(
             height: 10,
           ),
-          itemCount: transactionList.length < 5 ? transactionList.length : 5,
+          itemCount: tempList.length < 5 ? tempList.length : 5,
         );
       },
     );

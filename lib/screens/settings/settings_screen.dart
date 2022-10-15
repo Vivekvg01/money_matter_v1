@@ -4,22 +4,15 @@ import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/screens/settings/Functions/settings_functions.dart';
 import 'package:money_matter/screens/settings/widgets/privacy_policy_widget.dart';
 import 'package:money_matter/screens/settings/widgets/reminder_widget.dart';
-import 'package:timezone/data/latest.dart' as tz;
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  void initState() {
-    super.initState();
-    tz.initializeTimeZones();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

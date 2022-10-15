@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../constants/colors.dart';
-import '../../../constants/constants.dart';
+import '../constants/colors.dart';
+import '../constants/constants.dart';
 
 class CommonTexFeildWidget extends StatelessWidget {
   const CommonTexFeildWidget({
@@ -48,7 +48,8 @@ class CommonTexFeildWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
-                bottom: 14,
+                top: 5,
+                bottom: 8,
               ), 
               child: TextFormField(  
                 maxLines: 1,
@@ -61,7 +62,7 @@ class CommonTexFeildWidget extends StatelessWidget {
                 },
                 controller: controller,
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                 contentPadding: const EdgeInsets.symmetric(vertical: 1),
                   hintText: hintText,
                   border: InputBorder.none,
                 ),

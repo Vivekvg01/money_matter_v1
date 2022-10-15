@@ -16,77 +16,85 @@ class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        height: chartheight,
-        decoration: BoxDecoration(
-          color: kWhiteColor,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              spreadRadius: 5,
-              blurRadius: 6,
-              offset: const Offset(0, 4),
+      child: entireData.length < 2
+          ? const Text(
+              'No enough data to render the chart!!',
+              style: TextStyle(
+                fontSize: 16,
+              ),
             )
-          ],
-        ),
-        padding: const EdgeInsets.only(
-          right: 43,
-          top: 30,
-          bottom: 30,
-        ),
-        margin: const EdgeInsets.all(12),
-        child: LineChart(
-          LineChartData(
-            titlesData: FlTitlesData(
-              rightTitles: AxisTitles(
-                sideTitles: SideTitles(showTitles: false),
+          : Container(
+              height: chartheight,
+              decoration: BoxDecoration(
+                color: kWhiteColor,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.4),
+                    spreadRadius: 5,
+                    blurRadius: 6,
+                    offset: const Offset(0, 4),
+                  )
+                ],
               ),
-              bottomTitles: AxisTitles(
-                sideTitles: SideTitles(showTitles: true),
+              padding: const EdgeInsets.only(
+                right: 43,
+                top: 30,
+                bottom: 30,
               ),
-              topTitles: AxisTitles(
-                sideTitles: SideTitles(showTitles: false),
-              ),
-            ),
-            borderData: FlBorderData(
-              show: true,
-              border: Border.all(
-                color: const Color.fromARGB(142, 55, 67, 77),
-                width: 1,
-              ),
-            ),
-            gridData: FlGridData(
-              show: true,
-              getDrawingHorizontalLine: (value) {
-                return FlLine(
-                  color: const Color.fromARGB(79, 55, 67, 77),
-                  strokeWidth: 1,
-                );
-              },
-            ),
-            lineBarsData: [
-              LineChartBarData(
-                color: primaryColor,
-                spots: statDropDownValue == "Income" && statIndex == 1
-                    ? getPlotPointsIncome(entireData)
-                    : statDropDownValue == "Expense" && statIndex == 1
-                        ? getPlotPointsExpense(entireData)
-                        : statDropDownValue == "Income" && statIndex == 2
-                            ? getYearPlotPointsIncome(entireData)
-                            : statDropDownValue == "Expense" && statIndex == 2
-                                ? getYearPlotPointsExpense(entireData)
-                                : getPlotPointsIncome(entireData),
-                isCurved: true,
-                preventCurveOverShooting: true,
-                belowBarData: BarAreaData(
-                  show: true,
+              margin: const EdgeInsets.all(12),
+              child: LineChart(
+                LineChartData(
+                  titlesData: FlTitlesData(
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: true),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border.all(
+                      color: const Color.fromARGB(142, 55, 67, 77),
+                      width: 1,
+                    ),
+                  ),
+                  gridData: FlGridData(
+                    show: true,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        color: const Color.fromARGB(79, 55, 67, 77),
+                        strokeWidth: 1,
+                      );
+                    },
+                  ),
+                  lineBarsData: [
+                    LineChartBarData(
+                      color: primaryColor,
+                      spots: statDropDownValue == "Income" && statIndex == 1
+                          ? getPlotPointsIncome(entireData)
+                          : statDropDownValue == "Expense" && statIndex == 1
+                              ? getPlotPointsExpense(entireData)
+                              : statDropDownValue == "Income" && statIndex == 2
+                                  ? getYearPlotPointsIncome(entireData)
+                                  : statDropDownValue == "Expense" &&
+                                          statIndex == 2
+                                      ? getYearPlotPointsExpense(entireData)
+                                      : getPlotPointsIncome(entireData),
+                      isCurved: true,
+                      preventCurveOverShooting: true,
+                      belowBarData: BarAreaData(
+                        show: true,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

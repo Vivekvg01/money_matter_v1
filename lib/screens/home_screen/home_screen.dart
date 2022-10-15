@@ -4,6 +4,7 @@ import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/main.dart';
+import 'package:money_matter/screens/home_screen/widget/balance_card.dart';
 import 'package:money_matter/screens/home_screen/widget/chart_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/custom_circle_icon_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/recent_transactions.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getUsername();
-    statIndex =1 ;
+    statIndex = 1;
     statDropDownValue = "Expense";
     super.initState();
   }
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getAllTransactions();
     return Scaffold(
       body: SafeArea(
         child: ValueListenableBuilder(
@@ -62,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Stack(
                   children: [
+                    //background container
                     Container(
                       height: 200,
                       width: double.infinity,
@@ -87,137 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 70,
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        height: 220,
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                left: 18,
-                                top: 25,
-                              ),
-                              child: Text(
-                                'Total Balance',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 19,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 13,
-                                left: 20,
-                                right: 25,
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.currency_rupee,
-                                    color: kWhiteColor,
-                                    size: 50,
-                                  ),
-                                  Expanded(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Text(
-                                        '${totalBalance < 0 ? 0 : totalBalance}',
-                                        style: TextStyle(
-                                          color: kWhiteColor,
-                                          fontSize: 50,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12,
-                                horizontal: 25,
-                              ),
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    CustomCircleIconWidget(
-                                      icon: Icons.arrow_downward,
-                                      color: kGreenColor,
-                                    ),
-                                    kWidth5,
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Income',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        Text(
-                                          totalIncome.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    kWidth30,
-                                    CustomCircleIconWidget(
-                                      icon: Icons.arrow_upward,
-                                      color: kRedColor,
-                                    ),
-                                    kWidth5,
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Expense',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        Text(
-                                          totalExpense.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                    //Balace Card
+                    const BalaceCard(),
                   ],
                 ),
                 Padding(
@@ -232,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 20,
                         ),
                       ),
-                      kHeight10,
+                      kHeight20,
                       //Chart
                       ChartWidget(
                         entireData: transactionDatas,
                         chartheight: 400,
                       ),
-                      kHeight10,
+                      kHeight20,
                       const Text(
                         'Recent Transactions',
                         style: TextStyle(
@@ -248,8 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       kHeight10,
                       RecentTransactionWidget(),
-                      kHeight50,
-                      kHeight20,
+                      const SizedBox(height: 80),
                     ],
                   ),
                 ),

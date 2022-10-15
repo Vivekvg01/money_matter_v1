@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
+import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/home_screen/widget/chart_widget.dart';
@@ -20,7 +21,6 @@ class _ScreenStatisticsState extends State<ScreenStatistics> {
   final items = <String>['Income', 'Expense'];
   @override
   Widget build(BuildContext context) {
-    //page = false;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -32,7 +32,11 @@ class _ScreenStatisticsState extends State<ScreenStatistics> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22),
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 10,
+            top: 8.0,
+          ),
           child: SizedBox(
             child: Column(
               children: [
@@ -137,20 +141,16 @@ class _ScreenStatisticsState extends State<ScreenStatistics> {
                     ],
                   ),
                 ),
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: transactionListNotifier,
-                      builder: (BuildContext ctx,
-                          List<TransactionModel> transactionDatas, _) {
-                        return ChartWidget(
-                          entireData: transactionDatas,
-                          chartheight: 500,
-                        );
-                      },
-                    ),
-                  ],
+                kHeight20,
+                ValueListenableBuilder(
+                  valueListenable: transactionListNotifier,
+                  builder: (BuildContext ctx,
+                      List<TransactionModel> transactionDatas, _) {
+                    return ChartWidget(
+                      entireData: transactionDatas,
+                      chartheight: 500,
+                    );
+                  },
                 )
               ],
             ),

@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: secondaryColor,
       body: Center(
         child: Image.asset(
-          'assets/caption logo.png',
+          'assets/splash img.png',
           height: 150,
           width: 150,
         ),
@@ -56,6 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return toGetStartedScreen();
     } else {
       await Future.delayed(const Duration(seconds: 3));
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) {

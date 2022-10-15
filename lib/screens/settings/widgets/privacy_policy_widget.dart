@@ -19,7 +19,8 @@ class PrivacyPolicyWidget extends StatelessWidget {
           ),
           kHeight30,
           const Text(
-            'This privacy notice for money matter application describes how this application collects and store your data',
+            'This privacy notice for money matter application describes how this application collects and store your informations.\v \t\t This application has a local databse storage system,which means this application stores your data locally in your device.So you dont have to worry about your dataIf you have any concerns connect @support.moneymatter.com.',
+            textAlign: TextAlign.center,
           ),
           kHeight20,
           CustomRoundRectButton(
@@ -27,7 +28,7 @@ class PrivacyPolicyWidget extends StatelessWidget {
             onButtonClicked: () {
               Navigator.of(context).pop();
             },
-          )
+          ),
         ],
       ),
     );

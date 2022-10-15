@@ -3,7 +3,7 @@ import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
-import 'package:money_matter/screens/add_transaction/widget/add_transaction_textfeild_widget.dart';
+import 'package:money_matter/widgets/common_textfeild.dart';
 import 'package:money_matter/screens/add_transaction/widget/choice_chip_widget.dart';
 import 'package:money_matter/screens/add_transaction/widget/date_pick_widget.dart';
 import 'package:money_matter/widgets/custom_round_rect_button.dart';

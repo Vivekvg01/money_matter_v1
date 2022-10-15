@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
-import 'package:money_matter/screens/add_transaction/widget/add_transaction_textfeild_widget.dart';
-import 'package:money_matter/screens/settings/widgets/reminder_notification.dart';
-import 'package:money_matter/widgets/bottom_navigationbar.dart';
+import 'package:money_matter/widgets/common_textfeild.dart';
 import 'package:money_matter/widgets/custom_round_rect_button.dart';
 
 class ReminderBottomSheet extends StatefulWidget {
@@ -18,26 +15,6 @@ class _ReminderBottomSheetState extends State<ReminderBottomSheet> {
   TimeOfDay? pickedTime;
   TimeOfDay currentTimme = TimeOfDay.now();
   final TextEditingController reminderController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    ReminderNotification().init(initScheduled: true);
-  }
-
-  void listenNotifiication() {
-    ReminderNotification.onNotifications.listen((onClickNotification));
-  }
-
-  onClickNotification(String? payload) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) {
-          return const BottomNavigationBarWidget();
-        },
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,25 +62,7 @@ class _ReminderBottomSheetState extends State<ReminderBottomSheet> {
                 kHeight10,
                 CustomRoundRectButton(
                   buttonLabel: '\tOK\t',
-                  onButtonClicked: () {
-                    print(pickedTime.toString());
-                    if (pickedTime != null && pickedTime != currentTimme) {
-                      setState(
-                        () {
-                          ReminderNotification.showScheduledNotifications(
-                            title: 'Money Matter',
-                            body: reminderController.text,
-                            scheduledTime: Time(
-                              pickedTime!.hour,
-                              pickedTime!.minute,
-                              0,
-                            ),
-                          );
-                        },
-                      );
-                      Navigator.of(context).pop();
-                    }
-                  },
+                  onButtonClicked: () {},
                 ),
               ],
             ),
