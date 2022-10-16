@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
@@ -18,22 +19,33 @@ class BalaceCard extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
-            top: 70,
+            top: 72,
           ),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.90,
-            height: 210,
+            height: 215,
             decoration: BoxDecoration(
               color: primaryColor,
+              border: Border.all(
+                color: kWhiteColor,
+                width: 3,
+                style: BorderStyle.solid,
+              ),
               borderRadius: BorderRadius.circular(25),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: kblackColor,
+                  blurRadius: 1.0,
+                ),
+              ],
             ),
             child: Column(
               children: [
                 kHeight30,
-                const Text(
+                Text(
                   'Total Balance',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.robotoCondensed(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 25,

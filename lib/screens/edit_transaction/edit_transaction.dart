@@ -105,11 +105,10 @@ class EditTransactionScreen extends StatelessWidget {
                   CustomRoundRectButton(
                     buttonLabel: "Update",
                     onButtonClicked: () {
-                     if( _formkey.currentState!.validate()){
-                       onUpdateButtonClicked(context);
-                      Navigator.of(context).pop();
-                     }
-                      
+                      if (_formkey.currentState!.validate()) {
+                        onUpdateButtonClicked(context);
+                        Navigator.of(context).pop();
+                      }
                     },
                   ),
                 ],
@@ -129,6 +128,20 @@ class EditTransactionScreen extends StatelessWidget {
       categoryEditController.text,
       type,
     );
+
     updateTransaction(editedTransaction, dataIndex);
+
+    if (amount != amountEditController.text ||
+        category != categoryEditController.text ||
+        selectedDate != editedDate ||
+        type != editedType) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 1),
+          content: Text('Transaction Updated'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
   }
 }

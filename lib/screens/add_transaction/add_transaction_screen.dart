@@ -89,18 +89,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 CustomRoundRectButton(
                   buttonLabel: 'Add',
                   onButtonClicked: () {
-                    if (_formKey.currentState!.validate()) {
-                      final amount = int.parse(amountController.text);
-                      final category = categoryController.text;
-                      final sample = TransactionModel(
-                        amount,
-                        selectedDate,
-                        category,
-                        type,
-                      );
-                      addTransactions(sample);
-                      Navigator.of(context).pop();
-                    }
+                    onAddTransactionClicked();
                   },
                 ),
               ],
@@ -109,5 +98,27 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         ),
       ),
     );
+  }
+ //button Action
+  void onAddTransactionClicked() {
+    if (_formKey.currentState!.validate()) {
+      final amount = int.parse(amountController.text);
+      final category = categoryController.text;
+      final sample = TransactionModel(
+        amount,
+        selectedDate,
+        category,
+        type,
+      );
+      addTransactions(sample);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Transaction Added'),
+           duration: Duration(seconds: 1),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.of(context).pop();
+    }
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money_matter/constants/colors.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/screens/settings/Functions/settings_functions.dart';
+import 'package:money_matter/screens/settings/widgets/about_us_widget.dart';
 import 'package:money_matter/screens/settings/widgets/privacy_policy_widget.dart';
-import 'package:money_matter/screens/settings/widgets/reminder_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -28,8 +28,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              //reminder
-              const ReminderWidget(),
               kHeight5,
               //reset app data
               ListTile(
@@ -111,7 +109,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'About Us',
                   style: TextStyle(fontSize: 19),
                 ),
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (builder) {
+                      return const AboutUsWidget();
+                    },
+                  );
+                },
+              ),
+              kHeight50,
+              kHeight20,
+              Text(
+                'Version : 1.0.0',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: kDarkgery,
+                ),
               )
             ],
           ),

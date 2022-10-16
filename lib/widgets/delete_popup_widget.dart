@@ -8,6 +8,7 @@ deletePopup(BuildContext context, int index) {
       deleteTransaction(index);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+           duration: Duration(seconds: 1),
           content: Text('Transaction deleted'),
           backgroundColor: Colors.red,
         ),

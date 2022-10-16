@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/widgets/custom_round_rect_button.dart';
 
-class PrivacyPolicyWidget extends StatelessWidget {
-  const PrivacyPolicyWidget({Key? key}) : super(key: key);
+class AboutUsWidget extends StatelessWidget {
+  const AboutUsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +12,14 @@ class PrivacyPolicyWidget extends StatelessWidget {
       child: Column(
         children: [
           const Text(
-            'Privacy Policy',
+            'About Us',
             style: TextStyle(
               fontSize: 19,
             ),
           ),
           kHeight30,
           const Text(
-            'This privacy notice for money matter application describes how this application collects and store your informations.\v \t\t This application has a local databse storage system.Which means this application stores your data locally in your device.So you dont have to worry about your data.If you have any concerns connect @support.moneymatter.com.',
+            'Money Matter is an application which helps to improve your personal finance.We provides graphs by tracking your transactions.',
             textAlign: TextAlign.center,
           ),
           kHeight20,
