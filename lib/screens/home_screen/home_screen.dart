@@ -94,38 +94,55 @@ class _HomeScreenState extends State<HomeScreen> {
                     const BalaceCard(),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Expense',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                transactionDatas.isEmpty
+                    ? Column(
+                        children: [
+                          kHeight30,
+                          Image.asset(
+                            'assets/home pic.png',
+                            height: 300,
+                          ),
+                           Text(
+                            'Add your transactions now!',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: kDarkgery,
+                            ),
+                          ),
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Expense',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            kHeight20,
+                            //Chart
+                            ChartWidget(
+                              entireData: transactionDatas,
+                              chartheight: 400,
+                            ),
+                            kHeight20,
+                            const Text(
+                              'Recent Transactions',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            kHeight10,
+                            RecentTransactionWidget(),
+                            const SizedBox(height: 80),
+                          ],
                         ),
                       ),
-                      kHeight20,
-                      //Chart
-                      ChartWidget(
-                        entireData: transactionDatas,
-                        chartheight: 400,
-                      ),
-                      kHeight20,
-                      const Text(
-                        'Recent Transactions',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      kHeight10,
-                      RecentTransactionWidget(),
-                      const SizedBox(height: 80),
-                    ],
-                  ),
-                ),
               ],
             );
           },

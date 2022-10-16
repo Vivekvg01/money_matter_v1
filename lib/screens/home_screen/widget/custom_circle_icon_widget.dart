@@ -14,10 +14,10 @@ class CustomCircleIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 23,
+      radius: 20,
       backgroundColor: Colors.white,
       child: CircleAvatar(
-        radius: 19,
+        radius: 17,
         backgroundColor: color,
         child: Icon(
           icon,

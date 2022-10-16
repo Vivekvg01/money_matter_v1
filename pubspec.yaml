@@ -65,6 +65,9 @@ flutter:
     - assets/caption logo.png
     - assets/man 3d.png
     - assets/splash img.png
+    - assets/stat.png
+    - assets/all_trans.png
+    - assets/home pic.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

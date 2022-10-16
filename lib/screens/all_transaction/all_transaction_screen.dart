@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_matter/constants/constants.dart';
 import 'package:money_matter/db/functions/db_functions.dart';
+import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/all_transaction/widgets/view_all_transaction_widget.dart';
 import '../../constants/colors.dart';
 
@@ -47,7 +48,7 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.only(left: 16,right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -174,7 +175,31 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
               ],
             ),
             kHeight20,
-            const ViewAllTransactions(),
+            ValueListenableBuilder(
+                valueListenable: transactionListNotifier,
+                builder: (BuildContext context,
+                    List<TransactionModel> transactionDatas, _) {
+                  return transactionDatas.isEmpty
+                      ? Column(
+                          children: [
+                            kHeight20,
+                            Image.asset(
+                              'assets/all_trans.png',
+                              height: 300,
+                              width: 300,
+                            ),
+                            kHeight30,
+                            Text(
+                              'No transactions Yet!',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: kDarkgery,
+                              ),
+                            ),
+                          ],
+                        )
+                      : const ViewAllTransactions();
+                }),
             const SizedBox(
               height: 90,
             ),

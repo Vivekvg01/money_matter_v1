@@ -146,10 +146,27 @@ class _ScreenStatisticsState extends State<ScreenStatistics> {
                   valueListenable: transactionListNotifier,
                   builder: (BuildContext ctx,
                       List<TransactionModel> transactionDatas, _) {
-                    return ChartWidget(
-                      entireData: transactionDatas,
-                      chartheight: 500,
-                    );
+                    return transactionDatas.isEmpty
+                        ? Column(
+                            children: [
+                              kHeight50,
+                              Image.asset(
+                                'assets/stat.png',
+                                height: 300,
+                              ),
+                              Text(
+                                'No Records!',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: kDarkgery,
+                                ),
+                              ),
+                            ],
+                          )
+                        : ChartWidget(
+                            entireData: transactionDatas,
+                            chartheight: 500,
+                          );
                   },
                 )
               ],

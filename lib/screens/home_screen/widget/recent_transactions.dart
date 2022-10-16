@@ -82,6 +82,7 @@ class RecentTransactionWidget extends StatelessWidget {
                   ],
                 ),
                 onTap: () {
+                  int dbIndex = tempList.length - index - 1;
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (contxt) {
@@ -89,7 +90,7 @@ class RecentTransactionWidget extends StatelessWidget {
                           amount: transactionDetails.amount.toString(),
                           category: transactionDetails.category,
                           editedDate: transactionDetails.date,
-                          dataIndex: index,
+                          dataIndex: dbIndex,
                           editedType: transactionDetails.type,
                         );
                       },

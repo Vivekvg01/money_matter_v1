@@ -8,6 +8,8 @@ Color secondaryColor = const Color(0xff153AFB);
 
 
 Color klightGrey = const Color(0xffD9D9D9);
+
+Color kDarkgery = const Color.fromARGB(255, 99, 99, 99);
 Color kWhiteColor =  const Color(0xffffffff);
 
 Color kGreenColor = const Color(0xff31B331);
