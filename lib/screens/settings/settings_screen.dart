@@ -118,8 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   );
                 },
               ),
-              kHeight50,
-              kHeight20,
+             const SizedBox(height: 250),
               Text(
                 'Version : 1.0.0',
                 style: TextStyle(

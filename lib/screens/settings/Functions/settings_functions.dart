@@ -40,7 +40,7 @@ void resetAllDatas(ctx) {
 //Feedback mail sending
 Future<void> sendMail() async {
   final Uri url = Uri.parse(
-      'mailto:vivekveuns021@gmail.com?subject=Feedback About Xpense App&body=');
+      'mailto:vivekveuns021@gmail.com?subject=Feedback About Money Matter App&body=');
   if (!await launchUrl(url)) {
     throw 'Could not launch';
   }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 
 ValueNotifier<List<TransactionModel>> transactionListNotifier =
     ValueNotifier([]);

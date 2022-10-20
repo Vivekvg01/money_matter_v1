@@ -88,6 +88,7 @@ class EditTransactionScreen extends StatelessWidget {
                     hintText: "Amount",
                     validator: amountEditController.text,
                     validateText: "Amount cant't be empty",
+                    inputTextType: TextInputType.number,
                   ),
                   kHeight20,
                   CommonTexFeildWidget(
