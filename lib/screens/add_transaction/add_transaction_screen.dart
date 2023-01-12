@@ -8,7 +8,7 @@ import 'package:money_matter/screens/add_transaction/widget/date_pick_widget.dar
 import 'package:money_matter/widgets/custom_round_rect_button.dart';
 
 class AddTransactionScreen extends StatefulWidget {
-  AddTransactionScreen({Key? key}) : super(key: key);
+  const AddTransactionScreen({Key? key}) : super(key: key);
 
   @override
   State<AddTransactionScreen> createState() => _AddTransactionScreenState();
@@ -99,7 +99,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       ),
     );
   }
- //button Action
+
+  //button Action
   void onAddTransactionClicked() {
     if (_formKey.currentState!.validate()) {
       final amount = int.parse(amountController.text);
@@ -114,8 +115,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Transaction Added'),
-           duration: Duration(seconds: 1),
           backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
         ),
       );
       Navigator.of(context).pop();

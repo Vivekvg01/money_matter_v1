@@ -6,7 +6,7 @@ import 'package:money_matter/screens/all_transaction/widgets/view_all_transactio
 import '../../constants/colors.dart';
 
 class AllTransactionScreen extends StatefulWidget {
-  AllTransactionScreen({Key? key}) : super(key: key);
+  const AllTransactionScreen({Key? key}) : super(key: key);
 
   @override
   State<AllTransactionScreen> createState() => _AllTransactionScreenState();
@@ -176,30 +176,31 @@ class _AllTransactionScreenState extends State<AllTransactionScreen> {
             ),
             kHeight20,
             ValueListenableBuilder(
-                valueListenable: transactionListNotifier,
-                builder: (BuildContext context,
-                    List<TransactionModel> transactionDatas, _) {
-                  return transactionDatas.isEmpty
-                      ? Column(
-                          children: [
-                            kHeight20,
-                            Image.asset(
-                              'assets/all_trans.png',
-                              height: 300,
-                              width: 300,
+              valueListenable: transactionListNotifier,
+              builder: (BuildContext context,
+                  List<TransactionModel> transactionDatas, _) {
+                return transactionDatas.isEmpty
+                    ? Column(
+                        children: [
+                          kHeight20,
+                          Image.asset(
+                            'assets/all_trans.png',
+                            height: 300,
+                            width: 300,
+                          ),
+                          kHeight30,
+                          Text(
+                            'No transactions Yet!',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: kDarkgery,
                             ),
-                            kHeight30,
-                            Text(
-                              'No transactions Yet!',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: kDarkgery,
-                              ),
-                            ),
-                          ],
-                        )
-                      : const ViewAllTransactions();
-                }),
+                          ),
+                        ],
+                      )
+                    : const ViewAllTransactions();
+              },
+            ),
             const SizedBox(
               height: 90,
             ),

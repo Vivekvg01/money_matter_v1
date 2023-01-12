@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_matter/constants/constants.dart';
+
 import 'package:money_matter/db/functions/db_functions.dart';
 import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/screens/all_transaction/all_transaction_screen.dart';

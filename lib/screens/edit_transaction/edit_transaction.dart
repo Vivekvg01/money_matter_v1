@@ -138,9 +138,9 @@ class EditTransactionScreen extends StatelessWidget {
         type != editedType) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          duration: Duration(seconds: 1),
           content: Text('Transaction Updated'),
           backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
         ),
       );
     }

@@ -13,7 +13,6 @@ class ScreenStatistics extends StatefulWidget {
 }
 
 int statIndex = 1;
-
 bool page = true;
 String statDropDownValue = 'Income';
 

@@ -6,7 +6,6 @@ import 'package:money_matter/db/models/transaction_model.dart';
 import 'package:money_matter/main.dart';
 import 'package:money_matter/screens/home_screen/widget/balance_card.dart';
 import 'package:money_matter/screens/home_screen/widget/chart_widget.dart';
-import 'package:money_matter/screens/home_screen/widget/custom_circle_icon_widget.dart';
 import 'package:money_matter/screens/home_screen/widget/recent_transactions.dart';
 import 'package:money_matter/screens/home_screen/widget/time_control.dart';
 import 'package:money_matter/screens/statitics_screen/statstics_screen.dart';
