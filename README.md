@@ -55,7 +55,7 @@ Home Screen                    |   All transaction Screen             |  Statist
 
 ## Packages and Credits
 
-- [Fl chart](https://github.com/imaNNeoFighT/fl_chart))
+- [Fl chart](https://github.com/imaNNeoFighT/fl_chart)
 - [Google fonts](https://github.com/material-foundation/google-fonts-flutter)
 - [Hive flutter](https://github.com/hivedb/hive/tree/master/hive_flutter)
 - [Shared preferences](https://github.com/flutter/plugins/tree/main/packages/shared_preferences/shared_preferences)
